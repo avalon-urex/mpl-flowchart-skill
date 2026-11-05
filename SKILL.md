@@ -103,7 +103,7 @@ The engine does **not** auto-place or auto-avoid anything: every coordinate is y
 - Estimate text size before placing it: about 0.55-0.6 units per character at font size 7-8 on the default wide canvas (100 units across 16 in); scale with `xlim` and `figsize`. Make boxes 10-20% wider than the estimate.
 - Slide a path label along its line (the box can sit anywhere on the line) until it clears neighboring cards; shift it into a stage with empty vertical space.
 - Put a node's caption in free space beside it, not on the incoming/outgoing arrows; a side with a card or vertical arrow is not free.
-- Put legends in the empty pocket between rows of cards (not across arrows); check both the box and its title row.
+- Put the legend / notation key in a canvas corner (lower-right or upper-left is usual), clear of arrows and cards. If every corner is occupied, shrink or move the neighboring card (e.g. make a card shorter around its arrow) before falling back to an empty pocket inside the diagram. Check both the box and its title row.
 - Keep arrows straight and orthogonal; if two cross, reroute one around with `poly_arrow` waypoints rather than shrinking cards.
 - Move title text off-center (`canvas.ax.text(..., ha="left")` with `title=None` on the container) if an arrow enters the container at its middle.
 - Change one thing at a time when fixing and re-render, so fixes don't create new overlaps.

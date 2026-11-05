@@ -106,12 +106,12 @@ def draw_mamba_block():
 
     # Final Mamba Output Card
     canvas.arrow(89.5 + 0.8, cy_gate_mul, 92.5, cy_gate_mul, lw=1.0)
-    canvas.card(92.5, cy_gate_mul - 4.5, 5.8, 9.0, title="Mamba\nOutput", formula=r"$y \in \mathbb{R}^{B \times L \times D}$",
+    # (7.0 tall, centered on the arrow, so the lower-right corner stays free for the legend)
+    canvas.card(92.5, cy_gate_mul - 3.5, 5.8, 7.0, title="Mamba\nOutput", formula=r"$y \in \mathbb{R}^{B \times L \times D}$",
                 palette="green", stack=2, shadow=True)
 
-    # Legend
-    # Free pocket in stage 3: above the gate arrow (y=8), below the SSM cards (bottoms y>=17.5)
-    canvas.legend(57.5, 9.0, [
+    # Legend in the lower-right corner of the canvas (inside stage 4, under the Linear/Output cards)
+    canvas.legend(82.5, 2.2, [
         ("+", "Element-wise Sum"),
         ("x", "Hadamard Gating"),
         ("--", "Residual Shortcut"),

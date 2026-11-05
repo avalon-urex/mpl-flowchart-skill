@@ -125,7 +125,7 @@ def draw_transformer():
     canvas.card(38.0, 91.0, 20.0, 4.5, title="Softmax", formula=r"$P(y_t | y_{<t}, X) = \mathrm{Softmax}(z)$", palette="green", shadow=True)
 
     # Legend
-    canvas.legend(4.0, 83.0, [
+    canvas.legend(1.0, 88.0, [
         ("+", "Add (Residual)"),
         ("--", "Skip Connection"),
         ("x", "Cross Attention")
