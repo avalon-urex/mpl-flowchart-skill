@@ -12,7 +12,9 @@ from scripts.engine import FlowchartCanvas
 
 def draw_mamba_block():
     # Wide horizontal layout: 100 width x 33 height
-    canvas = FlowchartCanvas.wide(figsize=(16.0, 5.5), xlim=(0, 100), ylim=(0, 33))
+    # background="theme" -> solid theme canvas (readable on both light and dark GitHub pages)
+    canvas = FlowchartCanvas.wide(figsize=(16.0, 5.5), xlim=(0, 100), ylim=(0, 33),
+                                  theme="academic", background="theme")
 
     # STAGES
     canvas.stage_container(1.0, 1.4, 21.0, 30.2, title="1. Input & Dual Expansion", palette="neutral")

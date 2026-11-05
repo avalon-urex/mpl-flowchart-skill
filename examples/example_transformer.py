@@ -12,7 +12,9 @@ from scripts.engine import FlowchartCanvas
 
 def draw_transformer():
     # Vertical canvas: 65 width x 100 height
-    canvas = FlowchartCanvas.tall(figsize=(9.5, 12.5), xlim=(0, 65), ylim=(0, 100))
+    # background="theme" -> solid theme canvas (readable on both light and dark GitHub pages)
+    canvas = FlowchartCanvas.tall(figsize=(9.5, 12.5), xlim=(0, 65), ylim=(0, 100),
+                                  theme="academic", background="theme")
 
     # Title
     canvas.ax.text(32.5, 97.5, "The Transformer Architecture (Vaswani et al., 2017)",

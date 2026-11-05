@@ -49,6 +49,7 @@ Choose from built-in palettes or pass custom hex values:
 Example:
 ```python
 canvas = FlowchartCanvas.wide(theme="academic")  # or "dark", "mono"
+# background="theme" (default: solid theme canvas) or background="trans" (transparent)
 # Direct hex override is always supported anywhere:
 canvas.rbox(x, y, w, h, fc="#E7F5FF", ec="#1C7ED6")
 ```

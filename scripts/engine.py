@@ -14,6 +14,8 @@ from matplotlib.patches import FancyBboxPatch, Circle, Rectangle
 
 from .color_palettes import get_theme, ACADEMIC_LIGHT
 
+BACKGROUND_MODES = ("theme", "trans")
+
 
 class FlowchartCanvas:
     """
@@ -21,7 +23,18 @@ class FlowchartCanvas:
     neural network modules, and pipeline diagrams.
     """
     def __init__(self, figsize=(16.0, 5.5), xlim=(0, 100), ylim=(0, 33),
-                 aspect="equal", theme="academic", canvas_bg=None):
+                 aspect="equal", theme="academic", canvas_bg=None, background="theme"):
+        """
+        background:
+            "theme" (default) - solid canvas color taken from the theme
+                                (white for light themes, dark gray for "dark").
+            "trans"           - fully transparent background (only the shapes are drawn).
+        canvas_bg:
+            Optional hex color overriding the theme canvas color (ignored when background="trans").
+        """
+        if background not in BACKGROUND_MODES:
+            raise ValueError(f"background must be one of {BACKGROUND_MODES}, got {background!r}")
+        self.background = background
         self.theme = get_theme(theme)
         self.figsize = figsize
         self.xlim = xlim
@@ -35,8 +48,8 @@ class FlowchartCanvas:
             self.ax.set_aspect(aspect)
         self.ax.axis("off")
 
-        bg = canvas_bg or self.theme.get("canvas_bg", "#FFFFFF")
-        if bg != "#FFFFFF":
+        if background == "theme":
+            bg = canvas_bg or self.theme.get("canvas_bg", "#FFFFFF")
             self.fig.patch.set_facecolor(bg)
             self.ax.set_facecolor(bg)
 
@@ -233,7 +246,8 @@ class FlowchartCanvas:
         for ext in formats:
             out_file = out_dir / f"{name}.{ext}"
             tmp_file = out_dir / f"_tmp_{name}.{ext}"
-            self.fig.savefig(tmp_file, dpi=dpi, transparent=True, bbox_inches="tight", pad_inches=0.04)
+            self.fig.savefig(tmp_file, dpi=dpi, transparent=(self.background == "trans"),
+                             bbox_inches="tight", pad_inches=0.04)
             tmp_file.replace(out_file)
             print(f"Saved {out_file}")
         plt.close(self.fig)

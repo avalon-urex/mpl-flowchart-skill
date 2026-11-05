@@ -38,6 +38,9 @@ All diagrams below are programmatically synthesized via normalized vector geomet
   - `"academic"` / `"academic_light"`: Soft pastel fills with crisp high-contrast text conforming to IEEE, CVPR, NeurIPS, and ACM standards.
   - `"modern_dark"`: Dark canvas with high-contrast glowing accents for presentation decks and web showcases.
   - `"minimal_mono"`: Grayscale styling optimized for physical monochrome printing.
+- **Background Modes** (`background=`):
+  - `"theme"` (default): solid canvas color from the theme (white for light themes, dark gray for `"dark"`).
+  - `"trans"`: fully transparent background, only the shapes are drawn.
 - **Rich Vector Primitives**:
   - `stage_container()`: Grouped functional phases with dashed colored borders.
   - `card()`: Rounded operation cards with realistic drop shadows and multi-card tensor stacking.
