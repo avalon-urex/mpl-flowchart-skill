@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary diagram buffers
+_tmp_*.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
