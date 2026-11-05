@@ -30,11 +30,12 @@ def draw_mamba_block():
                 subtitle="Sequence features", palette="neutral", stack=2, shadow=True)
 
     # Residual Shortcut across the top at y=28.0
-    canvas.poly_arrow([(7.0, 20.0), (7.0, 28.0), (89.5, 28.0), (89.5, cy_main + 0.8)],
-                      ls="--", col="#2B8A3E", lw=1.1)
-    canvas.rbox(32.0, 27.0, 36.0, 2.0, fc="#FFFFFF", ec="#2B8A3E", lw=0.75, rad=0.4, z=5)
-    canvas.ax.text(50.0, 28.0, r"Block Residual Shortcut: $x + \mathrm{Linear}(\mathrm{SSM}(x) \odot \mathrm{Gate}(x))$",
-                   ha="center", va="center", fontsize=7.2, fontweight="bold", color="#2B8A3E", zorder=6)
+    residual_path = [(7.0, 20.0), (7.0, 28.0), (89.5, 28.0), (89.5, cy_main + 0.8)]
+    canvas.poly_arrow(residual_path, ls="--", col="#2B8A3E", lw=1.1)
+    # Auto-placed: slides along the path to the nearest spot that covers no card or title
+    canvas.path_label(residual_path,
+                      r"Block Residual Shortcut: $x + \mathrm{Linear}(\mathrm{SSM}(x) \odot \mathrm{Gate}(x))$",
+                      color="#2B8A3E")
 
     # Branching from Input
     canvas.poly_arrow([(11.5, 15.75), (13.5, 15.75), (13.5, cy_main), (15.0, cy_main)], lw=1.0)
@@ -89,8 +90,9 @@ def draw_mamba_block():
     cx_gate_mul = 78.5
     cy_gate_mul = 14.7
     canvas.times_node(cx_gate_mul, cy_gate_mul, r=0.75, col="#D9480F")
-    canvas.ax.text(cx_gate_mul, cy_gate_mul + 1.3, r"$y \odot \mathrm{SiLU}(z)$", ha="center", va="center",
-                   fontsize=7.2, fontweight="bold", color="#D9480F", zorder=7)
+    # Auto-placed next to the node, dodging the incoming arrows and neighbouring cards
+    canvas.label(cx_gate_mul, cy_gate_mul, r"$y \odot \mathrm{SiLU}(z)$", color="#D9480F",
+                 prefer=("above", "left", "right", "below"))
 
     # Linear projection back to dimension D
     canvas.arrow(cx_gate_mul + 0.8, cy_gate_mul, 82.0, cy_gate_mul, lw=1.0)
@@ -108,11 +110,12 @@ def draw_mamba_block():
                 palette="green", stack=2, shadow=True)
 
     # Legend
-    canvas.legend(48.5, 2.5, [
+    # No x/y given -> the legend is placed in the free rectangle nearest the lower right
+    canvas.legend(items=[
         ("+", "Element-wise Sum"),
         ("x", "Hadamard Gating"),
         ("--", "Residual Shortcut"),
-    ], title="Notation")
+    ], title="Notation", anchor="lower right")
 
     # Output save
     out_dir = Path(__file__).parent.parent / "assets"
