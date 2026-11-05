@@ -78,6 +78,38 @@ canvas.rbox(x, y, w, h, fc="#E7F5FF", ec="#1C7ED6")
 
 ---
 
+## Layout Workflow: Render, Inspect, Fix, Repeat
+
+The engine does **not** auto-place or auto-avoid anything: every coordinate is yours. Treat the first render as a draft and iterate until nothing overlaps. Never hand over a figure you have not looked at.
+
+**Loop (usually 2-5 rounds):**
+1. Run the script to produce the PNG (`python my_diagram.py`).
+2. **Look at the image** (open the PNG with the image-capable Read tool). For dense regions, crop/zoom a region (e.g. with PIL) so small overlaps are visible. Don't judge from the code alone.
+3. Check the list below and note each problem with its approximate data coordinates.
+4. Edit the coordinates in the script (move, resize, re-route), then re-render and look again.
+5. Stop only when a full pass finds no problems.
+
+**Overlap checklist:**
+- Label/annotation text vs. cards, nodes, arrows, or other text.
+- Boxed labels on a path vs. the cards or titles next to the path.
+- Legend vs. arrows, cards, or stage borders (it should sit entirely in a free pocket).
+- Stage titles vs. arrows entering/leaving the container (title hidden behind a card or crossed by a line).
+- Containers too short for their contents (children poking past the border, title colliding with the top card).
+- Arrowheads landing inside or on top of nodes/cards; arrows crossing text.
+- Anything cut off at the canvas edge, or too close (< ~1 unit) to a neighbor.
+
+**Placement rules of thumb (data units):**
+- Reserve space first: decide each stage/column extent, then position cards inside with at least ~1.5 units of margin; give containers extra height for the title row (~3 units).
+- Estimate text size before placing it: about 0.55-0.6 units per character at font size 7-8 on the default wide canvas (100 units across 16 in); scale with `xlim` and `figsize`. Make boxes 10-20% wider than the estimate.
+- Slide a path label along its line (the box can sit anywhere on the line) until it clears neighboring cards; shift it into a stage with empty vertical space.
+- Put a node's caption in free space beside it, not on the incoming/outgoing arrows; a side with a card or vertical arrow is not free.
+- Put legends in the empty pocket between rows of cards (not across arrows); check both the box and its title row.
+- Keep arrows straight and orthogonal; if two cross, reroute one around with `poly_arrow` waypoints rather than shrinking cards.
+- Move title text off-center (`canvas.ax.text(..., ha="left")` with `title=None` on the container) if an arrow enters the container at its middle.
+- Change one thing at a time when fixing and re-render, so fixes don't create new overlaps.
+
+---
+
 ## Landmark Reference Examples in Repository
 
 1. **Transformer Architecture (`examples/example_transformer.py`)**:

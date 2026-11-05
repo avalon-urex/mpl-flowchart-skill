@@ -32,8 +32,9 @@ def draw_mamba_block():
     # Residual Shortcut across the top at y=28.0
     canvas.poly_arrow([(7.0, 20.0), (7.0, 28.0), (89.5, 28.0), (89.5, cy_main + 0.8)],
                       ls="--", col="#2B8A3E", lw=1.1)
-    canvas.rbox(32.0, 27.0, 36.0, 2.0, fc="#FFFFFF", ec="#2B8A3E", lw=0.75, rad=0.4, z=5)
-    canvas.ax.text(50.0, 28.0, r"Block Residual Shortcut: $x + \mathrm{Linear}(\mathrm{SSM}(x) \odot \mathrm{Gate}(x))$",
+    # Label box sits on the line, shifted left (x 12-48) so it clears the SSM cards (tops at y=27+)
+    canvas.rbox(12.0, 27.0, 36.0, 2.0, fc="#FFFFFF", ec="#2B8A3E", lw=0.75, rad=0.4, z=5)
+    canvas.ax.text(30.0, 28.0, r"Block Residual Shortcut: $x + \mathrm{Linear}(\mathrm{SSM}(x) \odot \mathrm{Gate}(x))$",
                    ha="center", va="center", fontsize=7.2, fontweight="bold", color="#2B8A3E", zorder=6)
 
     # Branching from Input
@@ -89,7 +90,8 @@ def draw_mamba_block():
     cx_gate_mul = 78.5
     cy_gate_mul = 14.7
     canvas.times_node(cx_gate_mul, cy_gate_mul, r=0.75, col="#D9480F")
-    canvas.ax.text(cx_gate_mul, cy_gate_mul + 1.3, r"$y \odot \mathrm{SiLU}(z)$", ha="center", va="center",
+    # Placed right of the incoming vertical arrow (x=78.5) and above the Linear card (top y=17.9)
+    canvas.ax.text(cx_gate_mul + 0.7, 18.7, r"$y \odot \mathrm{SiLU}(z)$", ha="left", va="center",
                    fontsize=7.2, fontweight="bold", color="#D9480F", zorder=7)
 
     # Linear projection back to dimension D
@@ -108,7 +110,8 @@ def draw_mamba_block():
                 palette="green", stack=2, shadow=True)
 
     # Legend
-    canvas.legend(48.5, 2.5, [
+    # Free pocket in stage 3: above the gate arrow (y=8), below the SSM cards (bottoms y>=17.5)
+    canvas.legend(57.5, 9.0, [
         ("+", "Element-wise Sum"),
         ("x", "Hadamard Gating"),
         ("--", "Residual Shortcut"),

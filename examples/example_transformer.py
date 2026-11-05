@@ -1,4 +1,4 @@
-"""
+﻿"""
 Example 1: The Iconic Transformer Architecture ("Attention Is All You Need", Vaswani et al., 2017).
 Demonstrates the vertical / tall canvas layout (FlowchartCanvas.tall).
 """
@@ -21,7 +21,9 @@ def draw_transformer():
                    ha="center", va="center", fontsize=11.5, fontweight="bold", color="#212529")
 
     # ENCODER STACK (Left Column, x in [4, 30])
-    canvas.stage_container(4.0, 24.0, 26.0, 56.0, title="Encoder (xN)", palette="neutral", rad=1.4)
+    canvas.stage_container(4.0, 24.0, 26.0, 58.0, title=None, palette="neutral", rad=1.4)
+    # Left-aligned container titles keep the center column free for the output arrow
+    canvas.ax.text(5.5, 80.5, "Encoder (xN)", ha="left", va="center", fontsize=10.5, fontweight="bold", color="#495057", zorder=3)
 
     # Input Embedding & Positional Encoding
     canvas.card(8.0, 3.0, 18.0, 4.5, title="Inputs", palette="neutral", shadow=True)
@@ -62,7 +64,8 @@ def draw_transformer():
                       ls="--", col="#1C7ED6", lw=1.0)
 
     # DECODER STACK (Right Column, x in [35, 61])
-    canvas.stage_container(35.0, 24.0, 26.0, 56.0, title="Decoder (xN)", palette="neutral", rad=1.4)
+    canvas.stage_container(35.0, 24.0, 26.0, 58.0, title=None, palette="neutral", rad=1.4)
+    canvas.ax.text(36.5, 80.5, "Decoder (xN)", ha="left", va="center", fontsize=10.5, fontweight="bold", color="#495057", zorder=3)
 
     # Output Embedding & Positional Encoding
     canvas.card(39.0, 3.0, 18.0, 4.5, title="Outputs (shifted right)", palette="neutral", shadow=True)
@@ -116,10 +119,10 @@ def draw_transformer():
                       ls="--", col="#1C7ED6", lw=1.0)
 
     # FINAL PROJECTION HEAD
-    canvas.arrow(48.0, 79.0, 48.0, 83.0, lw=1.0)
-    canvas.card(38.0, 83.0, 20.0, 4.5, title="Linear Projection", formula=r"$d_{\mathrm{model}} \to d_{\mathrm{vocab}}$", palette="purple", shadow=True)
-    canvas.arrow(48.0, 87.5, 48.0, 90.0, lw=1.0)
-    canvas.card(38.0, 90.0, 20.0, 4.5, title="Softmax", formula=r"$P(y_t | y_{<t}, X) = \mathrm{Softmax}(z)$", palette="green", shadow=True)
+    canvas.arrow(48.0, 79.0, 48.0, 84.0, lw=1.0)
+    canvas.card(38.0, 84.0, 20.0, 4.5, title="Linear Projection", formula=r"$d_{\mathrm{model}} \to d_{\mathrm{vocab}}$", palette="purple", shadow=True)
+    canvas.arrow(48.0, 88.5, 48.0, 91.0, lw=1.0)
+    canvas.card(38.0, 91.0, 20.0, 4.5, title="Softmax", formula=r"$P(y_t | y_{<t}, X) = \mathrm{Softmax}(z)$", palette="green", shadow=True)
 
     # Legend
     canvas.legend(4.0, 83.0, [
